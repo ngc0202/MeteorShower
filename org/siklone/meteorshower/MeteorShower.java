@@ -15,17 +15,16 @@ public class MeteorShower extends JavaPlugin {
 
     private Configuration YAMLcon;
     protected Map<World, Integer> counterTimers = new HashMap();
-    public ArrayList<Fireball> BALLS = new ArrayList();
     public MeteorShowerTask meteors = new MeteorShowerTask(this);
     protected Map<World, Timer> genericTimers = new HashMap();
     public Map<World, Boolean> activeShowers = new HashMap();
+    public ArrayList<Fireball> BALLS;
     private final MeteorShowerEntityListener entityListener = new MeteorShowerEntityListener(this);
 
     public void onEnable() {
         try {
             new File("plugins" + File.separator + "MeteorShower").mkdir();
         } catch (Exception e) {
-            e.printStackTrace();
             return;
         }
         File file = new File("plugins" + File.separator + "MeteorShower" + File.separator + "config.yml");
@@ -45,7 +44,6 @@ public class MeteorShower extends JavaPlugin {
                 this.YAMLcon.setProperty("shower.slimySurprise", Boolean.valueOf(true));
                 this.YAMLcon.save();
             } catch (Exception e) {
-                e.printStackTrace();
                 return;
             }
         }
@@ -68,6 +66,7 @@ public class MeteorShower extends JavaPlugin {
 //        getServer().getPluginManager().registerEvent(Event.Type.WORLD_LOAD, new MeteorShowerWorldListener(this), Event.Priority.Normal, this);
         this.getServer().getPluginManager().registerEvents(entityListener, this);
         getServer().getPluginCommand("mshower").setExecutor(new MeteorShowerCommandExecutor(this));
+        BALLS = new ArrayList<Fireball>();
     }
 
     private Configuration load() {
@@ -76,7 +75,6 @@ public class MeteorShower extends JavaPlugin {
             config.load();
             return config;
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }

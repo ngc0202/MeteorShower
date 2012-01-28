@@ -1,14 +1,10 @@
 package org.siklone.meteorshower;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Fireball;
 import org.bukkit.util.Vector;
@@ -40,16 +36,16 @@ public class MeteorShowerMake extends TimerTask {
                     Location location = new Location((World) this.w, this.worldX + (this.rand.nextInt(240) - 120), 190.0D, this.worldZ + (this.rand.nextInt(240) - 120));
                     if (((String) this.plugin.read("shower.orientation")).equals("random")) {
                         location.setPitch(this.rand.nextInt(90) + 45);
-                    } else if ((String) this.plugin.read("shower.orientation") == "straight") {
+                    } else if (((String) this.plugin.read("shower.orientation")).equals("straight")) {
                         location.setPitch(80.0F);
                     } else {
                         location.setPitch(90.0F);
                     }
                     location.setYaw(this.rand.nextFloat());
                     Fireball fireball = (Fireball) ((World) this.w).spawn(location, Fireball.class);
-                    synchronized (this.plugin.BALLS) {
+//                    synchronized (this.plugin.BALLS) {
                         this.plugin.BALLS.add(fireball);
-                    }
+//                    }
                     fireball.setVelocity(new Vector(2.0D, 0.0D, 0.0D));
                     fireball.setYield(0.0F);
                 } else {
@@ -70,7 +66,6 @@ public class MeteorShowerMake extends TimerTask {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

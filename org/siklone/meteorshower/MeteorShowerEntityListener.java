@@ -1,12 +1,8 @@
 package org.siklone.meteorshower;
 
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.World.Environment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
@@ -19,14 +15,14 @@ public class MeteorShowerEntityListener implements Listener {
     protected static MeteorShower plugin;
 
     public MeteorShowerEntityListener(MeteorShower plugin){
-        this.plugin = plugin;
+        MeteorShowerEntityListener.plugin = plugin;
     }
     
     @EventHandler
     public void onExplosionPrime(ExplosionPrimeEvent event) {
         if (((event.getEntity() instanceof Fireball))
                 && (event.getEntity().getLocation().getWorld().getEnvironment() != World.Environment.NETHER)
-                && (plugin.BALLS.contains((Fireball) event.getEntity()))) {
+                && (plugin.BALLS.contains(event.getEntity()))) {
             boolean isFire = false;
             try {
                 isFire = ((Boolean) plugin.read("shower.setfire")).booleanValue();

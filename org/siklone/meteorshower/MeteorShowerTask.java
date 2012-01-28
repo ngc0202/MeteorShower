@@ -1,16 +1,11 @@
 package org.siklone.meteorshower;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 
 public class MeteorShowerTask extends Thread
@@ -25,6 +20,7 @@ public class MeteorShowerTask extends Thread
         plugin = instance;
     }
 
+    @Override
     public void run() {
         String[] exclude = ((String) plugin.read("shower.worldsToExclude")).split(",");
         for (String str : exclude) {
@@ -35,7 +31,7 @@ public class MeteorShowerTask extends Thread
             plugin.counterTimers.put(w, Integer.valueOf(0));
             plugin.genericTimers.put(w, new Timer(true));
             for (String str : exclude) {
-                if (w.getName() != str) {
+                if (!w.getName().equals(str)) {
                     continue;
                 }
                 System.out.println("[MeteorShower] World \"" + w.getName() + "\" excluded from meteor-showers!");

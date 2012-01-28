@@ -1,11 +1,8 @@
 package org.siklone.meteorshower;
 
-import java.io.PrintStream;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
